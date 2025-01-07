@@ -30,7 +30,7 @@ pipeline {
         stage('Run a Container') {
             steps {
                 echo 'Running Docker container using Docker Compose'
-                sh "docker-compose up --build -d"
+                sh "docker compose down && docker-compose up --build -d"
 
                 // Use Docker exec to modify server.js and public/index.html inside the container
                 sh """
