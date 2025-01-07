@@ -1,4 +1,4 @@
-# Use the official Ubuntu image
+## Use the official Ubuntu image
 FROM ubuntu:20.04
 
 # Set environment variables to avoid interactive prompts during package installation
