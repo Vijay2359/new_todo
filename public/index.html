@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+</head>
+<body>
+  <h1>Todo App</h1>
+  <input type="text" id="taskInput" placeholder="Enter a new task">
+  <button onclick="addTask()">Add Task</button>
+
+  <ul id="todoList"></ul>
+
+  <script>
+    const apiUrl = 'http://localhost:3000/api/todos';
+
+    async function fetchTodos() {
+      const res = await fetch(apiUrl);
+      const todos = await res.json();
+      const todoList = document.getElementById('todoList');
+      todoList.innerHTML = '';
+      todos.forEach(todo => {
+        const li = document.createElement('li');
+        li.innerHTML = `${todo.text} <button onclick="deleteTask(${todo.id})">Delete</button>`;
+        todoList.appendChild(li);
+      });
+    }
+
+    async function addTask() {
+      const taskInput = document.getElementById('taskInput');
+      const text = taskInput.value;
+      if (text) {
+        const res = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text }),
+        });
+        const newTask = await res.json();
+        taskInput.value = ''; // Clear the input
+        fetchTodos(); // Refresh the todo list
+      }
+    }
+
+    async function deleteTask(id) {
+      await fetch(`${apiUrl}/${id}`, {
+        method: 'DELETE',
+      });
+      fetchTodos(); // Refresh the todo list
+    }
+
+    // Fetch the tasks when the page loads
+    window.onload = fetchTodos;
+  </script>
+</body>
+</html>
