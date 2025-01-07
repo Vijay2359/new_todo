@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   app:
-    image: todo-jenkins
+    image: todo:latest
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
