@@ -34,8 +34,8 @@ pipeline {
 
                 // Use Docker exec to modify server.js and public/index.html inside the container
                 sh """
-                    docker exec cicd_app_1 sh -c "sed -i 's/localhost/3.83.126.230/' server.js"
-                    docker exec cicd_app_1 sh -c "sed -i 's/localhost/3.83.126.230/' public/index.html"
+                    docker exec cicd_app_1 sh -c "sed -i 's/localhost/52.55.150.153/' server.js"
+                    docker exec cicd_app_1 sh -c "sed -i 's/localhost/52.55.150.153/' public/index.html"
                 """
             }
         }
